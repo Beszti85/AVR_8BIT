@@ -33,7 +33,7 @@
     /* Wait for transmission complete */
     while(!(SPSR & (1<<SPIF)));
 
-    addr = SPDR;
-
-    return( addr );
+    return (SPDR);
  }
+ 
+ SpiMaster SpiBus = SpiMaster(1000);

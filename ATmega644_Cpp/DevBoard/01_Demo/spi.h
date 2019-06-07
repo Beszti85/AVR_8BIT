@@ -21,4 +21,6 @@ public:
     uint8_t SpiMaster_Receive(uint8_t addr);
 };
 
+extern SpiMaster SpiBus;
+
 #endif /* SPI_H_ */
