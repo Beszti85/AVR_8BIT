@@ -37,3 +37,5 @@
 
     return( addr );
  }
+
+ SpiMaster Spi = SpiMaster(1000);
