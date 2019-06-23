@@ -4,6 +4,8 @@
 
 #include <avr/io.h>
 
+#define F_CPU 16000000UL
+
 typedef volatile unsigned char 	vuint8_t;
 typedef unsigned char 			uint8_t;
 typedef unsigned int 			uint16_t;
@@ -22,6 +24,13 @@ typedef volatile uint8_t register8_t;
 #define DDRA	(*(register8_t*) 0x21)
 #define PORTA	(*(register8_t*) 0x22)
 */
+
+/* Processor TYP */
+#define MCU_MEGA32_644_1284 0 
+#define MCU_MEGA8_324       1
+#define MCU_MEGA128_90      2
+
+#define MCU_TYPE            MCU_MEGA32_644_1284
 
 #define True	1
 #define False	0

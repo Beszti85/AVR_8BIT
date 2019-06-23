@@ -7,16 +7,25 @@
 
  #include "spi.h"
 
- SpiMaster::SpiMaster(uint16_t baud)
+ SpiMaster::SpiMaster(SpiClockRate clock_rate)
  {
     /* Port Init */
-    DDRB |= 0xB0; // MOSI SCK SS output
+    #if (MCU_TYPE == MCU_MEGA32_644_1284)
+    DDRB |= 0xA0; // MOSI SCK output, SS done by component
     DDRB &= 0xBF; // MISO INPUT
-    SPCR = 0;	/* Clear the register */
+    #elif (MCU_TYPE == MCU_MEGA8_324)
+    DDRB |= 0x28;
+    DDRB &= 0xEF;
+    #elif (MCU_TYPE == MCU_MEGA128_90)
+    DDRB |= 0x06;
+    DDRB &= 0xF7;
+    #endif
+    /* Enable SPI and set Master mode */
+    SPCR = (1 << SPE) | (1 << MSTR) | (clock_rate << SPR0);
     SPSR = 0;
  }
  
- inline void SpiMaster::SpiMaster_Transmit(uint8_t data)
+ inline void SpiMaster::Transmit(uint8_t data)
  {
     /* Start transmission */
     SPDR = data;
@@ -25,7 +34,7 @@
     while(!(SPSR & (1<<SPIF)));
  }
 
- inline uint8_t SpiMaster::SpiMaster_Receive(uint8_t addr)
+ inline uint8_t SpiMaster::Receive(uint8_t addr)
  {
     /* Start transmission */
     SPDR = addr;
@@ -38,4 +47,4 @@
     return( addr );
  }
 
- SpiMaster Spi = SpiMaster(1000);
+ SpiMaster Spi = SpiMaster(FoscPer4);

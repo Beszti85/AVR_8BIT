@@ -11,14 +11,23 @@
 
 #include "my_typedef.h"
 
+enum SpiClockRate
+{
+    FoscPer4 = 0,
+    FoscPer16,
+    FoscPer64,
+    FoscPer128,
+};
+
 class SpiMaster
 {
 protected:
     uint16_t baudrate;
 public:
-    SpiMaster(uint16_t baud);
-    void SpiMaster_Transmit(uint8_t data);
-    uint8_t SpiMaster_Receive(uint8_t addr);
+    SpiMaster(SpiClockRate clock_rate);
+    uint16_t GetBaudRate(void) { return baudrate; };
+    void Transmit(uint8_t data);
+    uint8_t Receive(uint8_t addr);
 };
 
 extern SpiMaster Spi;

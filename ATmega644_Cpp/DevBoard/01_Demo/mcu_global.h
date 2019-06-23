@@ -10,8 +10,8 @@
 #define MCU_GLOBAL_H_
 
 #include "my_typedef.h"
-#define F_CPU 16000000UL
 #include <util/delay.h>
+#include "spi.h"
 
 /************ Function definitions *****************/
 void delay_usec (uint16_t msec);
