@@ -5,7 +5,3 @@
  *  Author: Beszterceiek
  */ 
 
-class Timer()
-{
-
-}
