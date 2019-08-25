@@ -9,30 +9,53 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-class Timer0
+#include "my_typedef.h"
+
+class BaseTimer
+{
+protected:
+    uint32_t tFreq;
+public:
+    virtual void StartTimer(void);
+    virtual void StopTimer(void);
+    virtual uint16_t GetCnValue(void);
+    virtual void SetFrequency(uint32_t frequency);
+};
+
+class Timer0 : BaseTimer
 {
 public:
-    uint8_t GetCntValue(void) {return TCNT0;};
-    Timer0(uint16_t frequency);
+    Timer0(uint32_t frequency);
+    uint16_t GetCntValue(void) {return (uint16_t)TCNT0;};
     void StartTimer(void);
-    void StopTimer(void);
+    void StopTimer(void) {TCCR0B &= 0xC8;};
+    void SetFrequency(uint32_t frequency);
 protected:
-    uint16_t frequ;
     uint8_t  cnt_val;
 };
 
-class Timer1
+class Timer1 : BaseTimer
 {
 public:
+    Timer1(uint32_t frequency);
     uint16_t GetCntValue(void) {return TCNT1;};
-    Timer1(uint16_t frequency);
     void StartTimer(void);
-    void StopTimer(void);
+    void StopTimer(void) {TCCR1B &= 0xD8;};
+    void SetFrequency(uint32_t frequency);
 protected:
-    uint16_t frequ;
     uint16_t cnt_val;
-}
+};
 
-
+class Timer2 : BaseTimer
+{
+public:
+    Timer2(uint32_t frequency);
+    uint16_t GetCntValue(void) {return TCNT2;};
+    void StartTimer(void);
+    void StopTimer(void) {TCCR2B &= 0xC8;};
+    void SetFrequency(uint32_t frequency);
+protected:
+    uint16_t cnt_val;
+};
 
 #endif /* TIMER_H_ */

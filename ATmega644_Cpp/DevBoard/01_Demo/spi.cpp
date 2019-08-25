@@ -7,6 +7,8 @@
 
  #include "spi.h"
 
+ SpiMaster Spi = SpiMaster(FoscPer16);
+
  SpiMaster::SpiMaster(SpiClockRate clock_rate)
  {
     /* Port Init */
@@ -25,26 +27,5 @@
     SPSR = 0;
  }
  
- inline void SpiMaster::Transmit(uint8_t data)
- {
-    /* Start transmission */
-    SPDR = data;
+ 
 
-    /* Wait for transmission complete */
-    while(!(SPSR & (1<<SPIF)));
- }
-
- inline uint8_t SpiMaster::Receive(uint8_t addr)
- {
-    /* Start transmission */
-    SPDR = addr;
-
-    /* Wait for transmission complete */
-    while(!(SPSR & (1<<SPIF)));
-
-    addr = SPDR;
-
-    return( addr );
- }
-
- SpiMaster Spi = SpiMaster(FoscPer4);

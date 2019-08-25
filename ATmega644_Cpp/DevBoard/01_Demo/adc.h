@@ -14,8 +14,17 @@
 class Adc
 {
 protected:
-    volatile register8_t* channel;
+    uint8_t  channel;
+    uint16_t rawValue;
 public:
+    Adc(uint8_t chan);
+    Adc(uint8_t vADMUX, uint8_t vADCSRA, uint8_t vADCSRB, uint8_t vDIDR0);
+    void SetVref(uint8_t ref);
+    void SetChannel(uint8_t chan);
+    void SetPrescaler(uint8_t prescale);
+    void StartConversion(void);
+    uint16_t StartAndGetConversion(void);
+    uint16_t GetResult(void);
 };
 
 

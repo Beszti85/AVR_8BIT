@@ -19,6 +19,7 @@ int main(void)
     {
         delay_msec(500);
         portB.TogglePin(0);
+        Spi.Transmit(0xA5);
 		//portB.SetPinValue(0, 1);
 		//delay_msec(500);
 		//portB.TogglePin(0);

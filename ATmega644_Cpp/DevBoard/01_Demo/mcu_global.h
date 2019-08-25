@@ -2,7 +2,7 @@
  * mcu_global.h
  *
  * Created: 2019.05.27. 16:31:26
- *  Author: Beszterceiek
+ *  Author: Besztercei
  */ 
 
 

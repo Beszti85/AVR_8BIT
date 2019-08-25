@@ -25,7 +25,7 @@ typedef volatile uint8_t register8_t;
 #define PORTA	(*(register8_t*) 0x22)
 */
 
-/* Processor TYP */
+/* Processor TYPE */
 #define MCU_MEGA32_644_1284 0 
 #define MCU_MEGA8_324       1
 #define MCU_MEGA128_90      2
