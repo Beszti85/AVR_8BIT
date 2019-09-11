@@ -53,7 +53,6 @@ inline uint8_t I2CMaster::Write(uint8_t data)
 
 inline uint8_t I2CMaster::Read(uint8_t ack, uint8_t* data)
 {
-    uint8_t retval;
     if (ack)
     {
         TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
@@ -66,7 +65,7 @@ inline uint8_t I2CMaster::Read(uint8_t ack, uint8_t* data)
     {
         ;
     }
-    *retval = TWDR;
+    *data = TWDR;
     return (TW_STATUS != 0x28);
 }
 

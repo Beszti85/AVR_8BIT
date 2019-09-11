@@ -46,13 +46,13 @@ public:
     void LeftAdjustResult(void)  {ADMUX |= (1 << ADLAR);};
     void RightAdjustResult(void) {ADMUX &= 0xDFu;};
     uint16_t StartAndGetConversion(void);
-    uint16_t GetResult(void);
+    uint16_t GetResult10bits(void);
 };
 
 inline void Adc::SetVref(VoltRef ref)
 {
     /* Clear bits 6 and 7 */
-    ADMUX &= 3Fu;
+    ADMUX &= 0x3Fu;
     /* Set value */
     ADMUX |= (ref << 6);
 }
@@ -71,6 +71,19 @@ inline void Adc::SetPrescaler(Prescale value)
     ADCSRA &= 0xF8u;
     /* value */
     ADCSRA |= value;
+}
+
+inline uint16_t Adc::GetResult10bits(void)
+{
+    /* LeftAdjusted */
+    if (ADCSRA & (1 << ADLAR))
+    {
+        return (((uint16_t)(ADCL) >> 6u) | ((uint16_t)(ADCH) << 2u));
+    }
+    else
+    {
+        return ((uint16_t)(ADCL) | ((uint16_t)(ADCH) << 8u));
+    }
 }
 
 #endif /* ADC_H_ */
