@@ -43,9 +43,10 @@ public:
     void SetChannel(uint8_t chan);
     void SetPrescaler(Prescale value);
     void StartConversion(void)   {ADCSRA |= 0x40u;};
+    void WaitForConversionComplete(void) {while (ADCSRA & (1 << ADSC));};
     void LeftAdjustResult(void)  {ADMUX |= (1 << ADLAR);};
     void RightAdjustResult(void) {ADMUX &= 0xDFu;};
-    uint16_t StartAndGetConversion(void);
+    uint16_t StartAndGetConversion(uint8_t channel);
     uint16_t GetResult10bits(void);
 };
 
