@@ -12,6 +12,7 @@
 #include "my_typedef.h"
 #include <util/delay.h>
 #include "spi.h"
+#include "adc.h"
 
 /************ Function definitions *****************/
 void delay_usec (uint16_t msec);

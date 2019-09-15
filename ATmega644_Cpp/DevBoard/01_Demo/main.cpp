@@ -11,7 +11,10 @@
 
 int main(void)
 {
+    uint16_t tempu16;
+
 	IOPort portB(&PORTB, &PINB, &DDRB);
+    AdcHw.BaseInit();
 	
 	portB.SetPortDirection(0xFF);
     /* Replace with your application code */
@@ -20,6 +23,7 @@ int main(void)
         delay_msec(500);
         portB.TogglePin(0);
         Spi.Transmit(0xA5);
+        tempu16 = AdcHw.SingleConversion(0);
 		//portB.SetPinValue(0, 1);
 		//delay_msec(500);
 		//portB.TogglePin(0);

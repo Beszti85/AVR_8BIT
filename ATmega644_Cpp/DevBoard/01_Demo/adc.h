@@ -39,6 +39,7 @@ protected:
 public:
     Adc(void) {};
     Adc(uint8_t vADMUX, uint8_t vADCSRA, uint8_t vADCSRB, uint8_t vDIDR0);
+    void BaseInit();
     void SetVref(VoltRef ref);
     void SetChannel(uint8_t chan);
     void SetPrescaler(Prescale value);
@@ -46,7 +47,7 @@ public:
     void WaitForConversionComplete(void) {while (ADCSRA & (1 << ADSC));};
     void LeftAdjustResult(void)  {ADMUX |= (1 << ADLAR);};
     void RightAdjustResult(void) {ADMUX &= 0xDFu;};
-    uint16_t StartAndGetConversion(uint8_t channel);
+    uint16_t SingleConversion(uint8_t channel);
     uint16_t GetResult10bits(void);
 };
 
@@ -86,5 +87,7 @@ inline uint16_t Adc::GetResult10bits(void)
         return ((uint16_t)(ADCL) | ((uint16_t)(ADCH) << 8u));
     }
 }
+
+ extern Adc AdcHw;
 
 #endif /* ADC_H_ */
