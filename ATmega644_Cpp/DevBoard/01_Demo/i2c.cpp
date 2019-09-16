@@ -2,7 +2,7 @@
  * i2c.cpp
  *
  * Created: 2019.08.24. 14:41:21
- *  Author: Besztercei
+ *  Author: Csaba Besztercei
  */ 
 
  #include "i2c.h"

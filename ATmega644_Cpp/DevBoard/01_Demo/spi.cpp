@@ -2,7 +2,7 @@
  * spi.cpp
  *
  * Created: 2019.06.01. 20:15:19
- *  Author: Beszterceiek
+ *  Author: Csaba Besztercei
  */ 
 
  #include "spi.h"

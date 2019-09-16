@@ -37,3 +37,4 @@ uint16_t Adc::SingleConversion(uint8_t channel)
     return (this->GetResult10bits());
 }
 
+

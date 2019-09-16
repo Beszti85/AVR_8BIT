@@ -2,7 +2,7 @@
  * 01_Demo.cpp
  *
  * Created: 2019.05.03. 8:22:15
- * Author : drcsabesz
+ * Author : Csaba Besztercei
  */ 
 
 //#include <avr/io.h>

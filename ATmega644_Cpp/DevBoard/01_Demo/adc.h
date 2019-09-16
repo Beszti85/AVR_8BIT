@@ -2,7 +2,7 @@
  * adc.h
  *
  * Created: 2019.05.27. 17:02:39
- *  Author: Beszterceiek
+ *  Author: Csaba Besztercei
  */ 
 
 
@@ -31,6 +31,18 @@ enum Prescale
     DivBy128
 };
 
+enum AutoTriggerSource
+{
+    FreeRunning = 0,
+    AnalogComparator,
+    ExternalInterrupt0,
+    Timer0Compare,
+    Timer0Overflow,
+    Timer1CompareB,
+    Timer1Overflow,
+    Timer1Capture
+};
+
 class Adc
 {
 protected:
@@ -43,6 +55,7 @@ public:
     void SetVref(VoltRef ref);
     void SetChannel(uint8_t chan);
     void SetPrescaler(Prescale value);
+    void SetAutoTriggerSource(AutoTriggerSource value) {ADCSRB = value;};
     void StartConversion(void)   {ADCSRA |= 0x40u;};
     void WaitForConversionComplete(void) {while (ADCSRA & (1 << ADSC));};
     void LeftAdjustResult(void)  {ADMUX |= (1 << ADLAR);};
@@ -88,6 +101,6 @@ inline uint16_t Adc::GetResult10bits(void)
     }
 }
 
- extern Adc AdcHw;
+extern Adc AdcHw;
 
 #endif /* ADC_H_ */

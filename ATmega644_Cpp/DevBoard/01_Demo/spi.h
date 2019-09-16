@@ -2,7 +2,7 @@
  * spi.h
  *
  * Created: 2019.06.01. 20:14:56
- *  Author: Besztercei
+ *  Author: Csaba Besztercei
  */ 
 
 
