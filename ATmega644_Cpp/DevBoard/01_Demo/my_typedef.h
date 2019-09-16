@@ -3,6 +3,7 @@
 #define _MY_TYPEDEF_H_ 1
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 #define F_CPU 16000000UL
 
