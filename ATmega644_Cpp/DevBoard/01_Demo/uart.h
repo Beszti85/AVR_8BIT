@@ -20,6 +20,15 @@ protected:
 public:
     Uart() {};
     friend void USART0_RX_vect(void);
+    void Send(uint8_t data);
 };
+
+inline void Uart::Send(uint8_t data)
+{
+    /* Wait for empty transmit buffer */
+    while( !(UCSR0A & (1<<UDRE0)) );
+    /* Put data into buffer, sends the data */
+    UDR0 = data;
+}
 
 #endif /* UART_H_ */
