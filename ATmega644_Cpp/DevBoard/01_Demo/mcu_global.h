@@ -10,7 +10,6 @@
 #define MCU_GLOBAL_H_
 
 #include "my_typedef.h"
-#include <util/delay.h>
 #include "spi.h"
 #include "adc.h"
 

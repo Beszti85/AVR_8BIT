@@ -5,8 +5,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#define F_CPU 16000000UL
-
 typedef volatile unsigned char 	vuint8_t;
 typedef unsigned char 			uint8_t;
 typedef unsigned int 			uint16_t;

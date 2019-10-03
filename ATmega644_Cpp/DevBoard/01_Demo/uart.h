@@ -19,6 +19,7 @@ protected:
     vuint8_t gUartData;
 public:
     Uart() {};
+    void Init(uint32_t baud);
     friend void USART0_RX_vect(void);
     void Send(uint8_t data);
 };

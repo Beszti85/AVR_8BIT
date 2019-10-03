@@ -8,6 +8,8 @@
  /*********************** DELAY_FUNCTION ***************************/
 
 #include "mcu_global.h"
+#include "ProjectConfig.h"
+#include <util/delay.h>
 
 void delay_msec (uint16_t msec)
 {
