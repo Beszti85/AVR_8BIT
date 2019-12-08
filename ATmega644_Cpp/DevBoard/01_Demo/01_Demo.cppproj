@@ -160,6 +160,12 @@
     <Compile Include="adc.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="adc_signal.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc_signal.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="i2c.cpp">
       <SubType>compile</SubType>
     </Compile>

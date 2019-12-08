@@ -45,9 +45,6 @@ enum AutoTriggerSource
 
 class Adc
 {
-protected:
-    uint8_t  channel;
-    uint16_t rawValue;
 public:
     Adc(void) {};
     Adc(uint8_t vADMUX, uint8_t vADCSRA, uint8_t vADCSRB, uint8_t vDIDR0);
@@ -59,9 +56,8 @@ public:
     void StartConversion(void)   {ADCSRA |= 0x40u;};
     void WaitForConversionComplete(void) {while (ADCSRA & (1 << ADSC));};
     void LeftAdjustResult(void)  {ADMUX |= (1 << ADLAR);};
-    void RightAdjustResult(void) {ADMUX &= 0xDFu;};
-    uint16_t SingleConversion(uint8_t channel);
     uint16_t GetResult10bits(void);
+	void Conversion(void);
 };
 
 inline void Adc::SetVref(VoltRef ref)

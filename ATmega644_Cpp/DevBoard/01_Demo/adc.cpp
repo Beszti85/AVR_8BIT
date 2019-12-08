@@ -25,16 +25,4 @@ void Adc::BaseInit()
     ADCSRB = 0u;
 }
 
-uint16_t Adc::SingleConversion(uint8_t channel)
-{
-    /* select channel */
-    this->SetChannel(channel & 0x0Fu);
-    /* start conversion */
-    this->StartConversion();
-    /* wait for the result */
-    this->WaitForConversionComplete();
-    /* get result */
-    return (this->GetResult10bits());
-}
-
 
