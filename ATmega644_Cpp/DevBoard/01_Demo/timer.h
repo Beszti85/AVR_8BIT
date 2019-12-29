@@ -26,6 +26,7 @@ class Timer0 : BaseTimer
 {
 public:
     Timer0(uint32_t frequency);
+	Timer0(uint8_t vTCCR0A, uint8_t vTCCR0B, uint8_t vTIMSK0);
     uint16_t GetCntValue(void) {return (uint16_t)TCNT0;};
     void StartTimer(void);
     void StopTimer(void) {TCCR0B &= 0xC8;};
@@ -38,6 +39,7 @@ class Timer1 : BaseTimer
 {
 public:
     Timer1(uint32_t frequency);
+	Timer1(uint8_t vTCCR1A, uint8_t vTCCR1B, uint8_t vTIMSK1);
     uint16_t GetCntValue(void) {return TCNT1;};
     void StartTimer(void);
     void StopTimer(void) {TCCR1B &= 0xD8;};
