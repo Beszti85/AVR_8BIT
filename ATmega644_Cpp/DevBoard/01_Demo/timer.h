@@ -11,18 +11,30 @@
 
 #include "my_typedef.h"
 
+enum Timer01Prescaler
+{
+	Stopped = 0u,
+	Prescale1,
+	Prescale8,
+	Prescale64,
+	Prescale256,
+	Prescale1024
+};
+
+#if 0
 class BaseTimer
 {
 protected:
     uint32_t tFreq;
 public:
-    virtual void StartTimer(void);
-    virtual void StopTimer(void);
-    virtual uint16_t GetCnValue(void);
-    virtual void SetFrequency(uint32_t frequency);
+    virtual void StartTimer(void) {};
+    virtual void StopTimer(void) {};
+    virtual uint16_t GetCnValue(void) {};
+    virtual void SetFrequency(uint32_t frequency) {};
 };
+#endif
 
-class Timer0 : BaseTimer
+class Timer0
 {
 public:
     Timer0(uint32_t frequency);
@@ -31,11 +43,14 @@ public:
     void StartTimer(void);
     void StopTimer(void) {TCCR0B &= 0xC8;};
     void SetFrequency(uint32_t frequency);
+	void SetPrescaler(Timer01Prescaler value);
+	void SetCompareValueA(uint8_t value) {OCR0A = value;}
+	void SetCompareValueB(uint8_t value) {OCR0B = value;}
 protected:
     uint8_t  cnt_val;
 };
 
-class Timer1 : BaseTimer
+class Timer1
 {
 public:
     Timer1(uint32_t frequency);
@@ -44,11 +59,12 @@ public:
     void StartTimer(void);
     void StopTimer(void) {TCCR1B &= 0xD8;};
     void SetFrequency(uint32_t frequency);
+	void SetPrescaler(Timer01Prescaler value);
 protected:
     uint16_t cnt_val;
 };
 
-class Timer2 : BaseTimer
+class Timer2
 {
 public:
     Timer2(uint32_t frequency);
@@ -59,5 +75,21 @@ public:
 protected:
     uint16_t cnt_val;
 };
+
+inline void Timer0::SetPrescaler(Timer01Prescaler value)
+{
+	/* clear Bits 0..2 */
+	TCCR0B &= 0xF7;
+	/* set value */
+	TCCR0B |= value;
+}
+
+inline void Timer1::SetPrescaler(Timer01Prescaler value)
+{
+	/* clear Bits 0..2 */
+	TCCR1B &= 0xF7;
+	/* set value */
+	TCCR1B |= value;
+}
 
 #endif /* TIMER_H_ */

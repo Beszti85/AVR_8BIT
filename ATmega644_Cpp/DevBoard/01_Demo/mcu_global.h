@@ -10,6 +10,7 @@
 #define MCU_GLOBAL_H_
 
 #include "my_typedef.h"
+#include "ProjectConfig.h"
 #include "spi.h"
 #include "adc.h"
 

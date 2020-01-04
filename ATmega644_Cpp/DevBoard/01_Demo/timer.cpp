@@ -32,5 +32,5 @@ Timer1::Timer1(uint8_t vTCCR1A, uint8_t vTCCR1B, uint8_t vTIMSK1)
 {
 	TCCR1A = vTCCR1A;
 	TCCR1B = vTCCR1B;
-	//TIMSK0 = vTIMSK1;
+	TIMSK1 = vTIMSK1;
 }

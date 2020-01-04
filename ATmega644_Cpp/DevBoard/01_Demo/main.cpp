@@ -9,10 +9,13 @@
 #include "IOPort.h"
 #include "mcu_global.h"
 #include "adc_signal.h"
+#include "timer.h"
 
 int main(void)
 {
     uint16_t tempu16;
+	
+	Timer0 MyTimer0 = Timer0(TCCR0A_SETUP, TCCR0B_SETUP, 0x01u);
 
 	IOPort portB(&PORTB, &PINB, &DDRB);
     AdcHw.BaseInit();
@@ -26,6 +29,9 @@ int main(void)
 	Adc_SingleSig AdcSigCh7 = Adc_SingleSig(7, 0, 1023u, 1023u);
 	
 	portB.SetPortDirection(0xFF);
+	/* Set Timer0A duty to 50% */
+	MyTimer0.SetCompareValueA(0x7Fu);
+	
     /* Replace with your application code */
     while (1) 
     {
