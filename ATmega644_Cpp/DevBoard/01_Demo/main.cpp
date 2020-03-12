@@ -10,6 +10,7 @@
 #include "mcu_global.h"
 #include "adc_signal.h"
 #include "timer.h"
+#include "uart.h"
 
 int main(void)
 {
@@ -18,6 +19,9 @@ int main(void)
 	Timer0 MyTimer0 = Timer0(TCCR0A_SETUP, TCCR0B_SETUP, 0x01u);
 
 	IOPort portB(&PORTB, &PINB, &DDRB);
+	
+	Uart0.Init(9600u);
+	
     AdcHw.BaseInit();
 	Adc_SingleSig AdcSigCh0 = Adc_SingleSig(0, 0, 1023u, 1023u);
 	Adc_SingleSig AdcSigCh1 = Adc_SingleSig(1, 0, 1023u, 1023u);
@@ -50,6 +54,10 @@ int main(void)
 		//delay_msec(500);
 		//portB.TogglePin(0);
 		//portB.SetPinValue(0, 0);
+		tempu16 = AdcSigCh0.GetResult();
+		tempu16 >>= 2u;
+		MyTimer0.SetCompareValueA((uint8_t)(tempu16));
+		
     }
 }
 

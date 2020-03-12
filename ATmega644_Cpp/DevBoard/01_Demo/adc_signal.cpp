@@ -26,3 +26,4 @@ void Adc_SingleSig::Conversion()
 	/* get result */
 	RawValue = this->GetResult10bits();
 }
+

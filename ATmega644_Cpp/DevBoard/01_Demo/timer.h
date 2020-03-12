@@ -21,20 +21,18 @@ enum Timer01Prescaler
 	Prescale1024
 };
 
-#if 0
 class BaseTimer
 {
 protected:
     uint32_t tFreq;
 public:
-    virtual void StartTimer(void) {};
-    virtual void StopTimer(void) {};
-    virtual uint16_t GetCnValue(void) {};
-    virtual void SetFrequency(uint32_t frequency) {};
+	void StartTimer(void) {};
+	void StopTimer(void) {};
+	uint16_t GetCnValue(void) {return 0;};
+	void SetFrequency(uint32_t frequency) {};
 };
-#endif
 
-class Timer0
+class Timer0 : BaseTimer
 {
 public:
     Timer0(uint32_t frequency);

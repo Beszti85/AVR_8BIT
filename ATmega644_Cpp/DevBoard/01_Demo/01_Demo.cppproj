@@ -178,6 +178,12 @@
     <Compile Include="IOPort.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="lcd.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>

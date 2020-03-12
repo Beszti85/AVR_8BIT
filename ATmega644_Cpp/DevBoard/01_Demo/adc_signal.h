@@ -25,6 +25,7 @@ public:
 	Adc_SingleSig(uint8_t channel, uint16_t min, uint16_t max, uint16_t err);
 	void Conversion(void);
 	void MeasureRawValue(void);
+	uint16_t GetResult() {return RawValue;};
 };
 
 

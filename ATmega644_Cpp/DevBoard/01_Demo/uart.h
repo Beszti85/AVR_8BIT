@@ -22,6 +22,7 @@ public:
     void Init(uint32_t baud);
     friend void USART0_RX_vect(void);
     void Send(uint8_t data);
+	uint8_t GetData(void) { return gUartData; };
 };
 
 inline void Uart::Send(uint8_t data)
@@ -31,5 +32,7 @@ inline void Uart::Send(uint8_t data)
     /* Put data into buffer, sends the data */
     UDR0 = data;
 }
+
+extern Uart Uart0;
 
 #endif /* UART_H_ */
