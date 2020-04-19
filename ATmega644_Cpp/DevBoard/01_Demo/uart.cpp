@@ -25,3 +25,12 @@ void Uart::Init(uint32_t baud)
     /* Synchronous mode, no parity 1 stop bit, 8-bit frames */
     UCSR0C = (2 << UMSEL00) | (0 << UPM01) |(0 << UPM00) | (1 << USBS0) | (3 << UCSZ00);
 }
+
+void Uart::Printf( const char* str )
+{
+	while (str != 0)
+	{
+		this->Send(*str);
+		str++;
+	}
+}

@@ -12,6 +12,8 @@
 #include "timer.h"
 #include "uart.h"
 
+const char* InitString = "Hello World\n";
+
 int main(void)
 {
     uint16_t tempu16;
@@ -35,6 +37,8 @@ int main(void)
 	portB.SetPortDirection(0xFF);
 	/* Set Timer0A duty to 50% */
 	MyTimer0.SetCompareValueA(0x7Fu);
+	/* Send Init String via Uart */
+	Uart0.Printf(InitString);
 	
     /* Replace with your application code */
     while (1) 
@@ -57,7 +61,7 @@ int main(void)
 		tempu16 = AdcSigCh0.GetResult();
 		tempu16 >>= 2u;
 		MyTimer0.SetCompareValueA((uint8_t)(tempu16));
-		
+		Uart0.Send((uint8_t)(tempu16));
     }
 }
 

@@ -23,6 +23,7 @@ public:
     friend void USART0_RX_vect(void);
     void Send(uint8_t data);
 	uint8_t GetData(void) { return gUartData; };
+	void Printf( const char* str );
 };
 
 inline void Uart::Send(uint8_t data)

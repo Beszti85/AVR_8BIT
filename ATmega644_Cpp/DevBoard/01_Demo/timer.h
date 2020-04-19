@@ -48,7 +48,7 @@ protected:
     uint8_t  cnt_val;
 };
 
-class Timer1
+class Timer1 : BaseTimer
 {
 public:
     Timer1(uint32_t frequency);
@@ -62,7 +62,7 @@ protected:
     uint16_t cnt_val;
 };
 
-class Timer2
+class Timer2 : BaseTimer
 {
 public:
     Timer2(uint32_t frequency);
