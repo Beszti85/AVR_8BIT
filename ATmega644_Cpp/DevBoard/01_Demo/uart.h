@@ -16,6 +16,7 @@ extern "C" void USART0_RX_vect(void) __attribute__ ((signal));
 class Uart
 {
 protected:
+    volatile bool RxFlag;
     vuint8_t gUartData;
 public:
     Uart() {};
@@ -24,6 +25,7 @@ public:
     void Send(uint8_t data);
 	uint8_t GetData(void) { return gUartData; };
 	void Printf( const char* str );
+	bool GetRxIrqFlag(void) { return RxFlag; };
 };
 
 inline void Uart::Send(uint8_t data)

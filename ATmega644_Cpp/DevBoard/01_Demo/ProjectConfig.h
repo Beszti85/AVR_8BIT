@@ -12,8 +12,8 @@
 /************* STRAPS ****************/
 
 #define	LED_BLINKING            0
-#define	TIMER0_OVERFLOW_IT      0
-#define TIMER0_COMPARE_IT       1
+#define	TIMER0_OVERFLOW_IT      1
+#define TIMER0_COMPARE_IT       0
 #define	TIMER1_OVERFLOW_IT      0
 #define TIMER1_COMPARE_A_IT     0
 #define TIMER1_PWM_A            1
@@ -48,6 +48,22 @@
 #if (!TIMER0_CONFIGURED)
 #define TCCR0A_SETUP   0
 #define TCCR0B_SETUP   0
+
+#elif (TIMER0_OVERFLOW_IT)
+
+#define TCCR0A_BIT76   0 /* COMPARE_OUTPUT_MODE_A */
+#define TCCR0A_BIT54   0 /* COMPARE_OUTPUT_MODE_B */
+#define TCCR0A_BIT10   0 /* WAWEFORM_GENERATION_MODE_BIT 10 */
+
+#define TCCR0A_SETUP   ((TCCR0A_BIT76 << COM0A0) | (TCCR0A_BIT54 << COM0B0) | (TCCR0A_BIT10 << WGM00))
+
+#define TCCR0B_BIT7    0 /* FORCE_OUTPUT_COMPARE_A */
+#define TCCR0B_BIT6    0 /* FORCE_OUTPUT_COMPARE_B */
+#define TCCR0B_BIT3    0 /* WAVEFORM_GENERATION_MODE BIT 2 */
+#define TCCR0B_BIT210  3 /* PRESCALER BITS 0...7 */
+
+#define TCCR0B_SETUP   ((TCCR0B_BIT7 << FOC0A) | (TCCR0B_BIT6 << FOC0B) | (TCCR0B_BIT3 << WGM02) | (TCCR0B_BIT210 << CS00))
+
 #else
 
 #define TCCR0A_BIT76   1 /* COMPARE_OUTPUT_MODE_A */
@@ -139,23 +155,23 @@
 #define ADCSRA_SETUP ((ADCSRA_BIT7 << 7) | (ADCSRA_BIT6 << 6) | (ADCSRA_BIT5 << 5) | (ADCSRA_BIT4 << 4) | (ADCSRA_BIT3 << 3) | (ADCSRA_BIT210))
 #endif
 
-#define ADC0_NOT_USED  0 /* 1 - channel not used, 0 - used */
-#define ADC1_NOT_USED  1
-#define ADC2_NOT_USED  1
-#define ADC3_NOT_USED  1
-#define ADC4_NOT_USED  1
-#define ADC5_NOT_USED  1
-#define ADC6_NOT_USED  1
-#define ADC7_NOT_USED  1
+#define ADC0_USED  1 /* 0 - channel not used, 1 - used */
+#define ADC1_USED  1
+#define ADC2_USED  1
+#define ADC3_USED  1
+#define ADC4_USED  1
+#define ADC5_USED  1
+#define ADC6_USED  1
+#define ADC7_USED  1
 
-#define ADC_PORTS_0     (ADC0_NOT_USED | \
-(ADC1_NOT_USED << 1) | \
-(ADC2_NOT_USED << 2) | \
-(ADC3_NOT_USED << 3) | \
-(ADC4_NOT_USED << 4) | \
-(ADC5_NOT_USED << 5) | \
-(ADC6_NOT_USED << 6) | \
-(ADC7_NOT_USED << 7))
+#define ADC_PORTS     (ADC0_USED | \
+(ADC1_USED << 1) | \
+(ADC2_USED << 2) | \
+(ADC3_USED << 3) | \
+(ADC4_USED << 4) | \
+(ADC5_USED << 5) | \
+(ADC6_USED << 6) | \
+(ADC7_USED << 7))
 
 /*************************************/
 

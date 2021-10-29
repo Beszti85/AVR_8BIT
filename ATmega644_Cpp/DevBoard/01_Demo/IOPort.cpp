@@ -52,10 +52,10 @@ void IOPort::SetPinValue(int pin, bool value)
 
 int IOPort::GetPinValue(int pin)
 {
-	return (* _pins & (1 << pin));
+	return (* _port & (1 << pin));
 }
 
 void IOPort::TogglePin(int pin)
 {
-    *_port = ~(* _pins & (1 << pin));
+    *_port = (* _port ^ (1 << pin));
 }

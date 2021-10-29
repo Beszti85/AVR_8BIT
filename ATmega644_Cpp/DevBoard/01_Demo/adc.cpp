@@ -21,7 +21,8 @@ void Adc::BaseInit()
 {
     ADMUX  = ADMUX_SETUP;
     ADCSRA = ADCSRA_SETUP;
-    DDRA  &= ADC_PORTS_0;
+    DDRA  &= (~ADC_PORTS);
+	DIDR0  = ADC_PORTS;
     ADCSRB = 0u;
 }
 

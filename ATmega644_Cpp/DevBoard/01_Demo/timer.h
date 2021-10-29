@@ -44,6 +44,8 @@ public:
 	void SetPrescaler(Timer01Prescaler value);
 	void SetCompareValueA(uint8_t value) {OCR0A = value;}
 	void SetCompareValueB(uint8_t value) {OCR0B = value;}
+    bool GetIrqFlag(void);
+	void ClearIrqFlag(void);
 protected:
     uint8_t  cnt_val;
 };
