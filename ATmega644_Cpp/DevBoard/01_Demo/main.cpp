@@ -11,18 +11,26 @@
 #include "adc_signal.h"
 #include "timer.h"
 #include "uart.h"
+#include "spi.h"
 #include <avr/interrupt.h>
+#include "ds1621.h"
+#include "max7219.h"
 
-const char* InitString = "Hello World\n";
+char InitString[] = "Hello World\n";
 
 int main(void)
 {
     uint16_t tempu16;
-	uint16_t timerCycle1sec;
+	uint16_t timerCycle1sec = 0u;
+	char string1ms[] = "Timer 1sec elapsed!\n";
+	bool displayToggle = false;
 	
 	Timer0 MyTimer0 = Timer0(TCCR0A_SETUP, TCCR0B_SETUP, 0x01u);
 
 	IOPort portB(&PORTB, &PINB, &DDRB);
+	portB.SetPortDirection(0x1F);
+	
+	SpiMaster Spi = SpiMaster(FoscPer16);
 	
 	Uart0.Init(9600u);
 	
@@ -36,11 +44,17 @@ int main(void)
 	Adc_SingleSig AdcSigCh6 = Adc_SingleSig(6, 0, 1023u, 1023u);
 	Adc_SingleSig AdcSigCh7 = Adc_SingleSig(7, 0, 1023u, 1023u);
 	
-	portB.SetPortDirection(0xFF);
+	//DS1621 Ds1621Ic = DS1621(&Spi);
+	Max7219Driver Max7219 = Max7219Driver(&Spi, &portB, 4u);
+	Max7219.DisplayOnOff(true);
+	Max7219.ScanLimit(7u);
+	
+	portB.SetPinValue(4, true);
 	/* Set Timer0A duty to 50% */
 	MyTimer0.SetCompareValueA(0x7Fu);
 	/* Send Init String via Uart */
 	Uart0.Printf(InitString);
+	Max7219.DisplayTest(false);
 	// Enable interrupts
 	sei();
 	
@@ -60,9 +74,41 @@ int main(void)
 			{
 				portB.TogglePin(1);
 				AdcSigCh0.Conversion();
+				AdcSigCh1.Conversion();
+				AdcSigCh2.Conversion();
+				AdcSigCh3.Conversion();
+				AdcSigCh4.Conversion();
+				AdcSigCh5.Conversion();
+				AdcSigCh6.Conversion();
+				AdcSigCh7.Conversion();
 				tempu16 = AdcSigCh0.GetResult();
 				tempu16 >>= 2u;
 				Uart0.Send((uint8_t)(tempu16));
+				Uart0.Send('\n');
+				Uart0.Printf(string1ms);
+				portB.TogglePin(2);
+				#if 0
+				if(displayToggle == false)
+				{
+					Max7219.DisplayTest(true);
+					displayToggle = true;
+				}
+				else
+				{
+					Max7219.DisplayTest(false);
+					displayToggle = false;
+				}
+				#endif
+				tempu16 >>= 2u;
+				Max7219.SendDigit(0, 0x10u);
+				Max7219.SendDigit(1, 0x30u);
+				Max7219.SendDigit(2, 0x70u);
+				Max7219.SendDigit(3, 0xFFu);
+				Max7219.SendDigit(4, 0xFFu);
+				Max7219.SendDigit(5, 0x70u);
+				Max7219.SendDigit(6, 0x30u);
+				Max7219.SendDigit(7, 0x10u);
+				Max7219.SetIntensity((uint8_t)tempu16);
 				timerCycle1sec = 0u;
 			}
 			// Clear IT flag

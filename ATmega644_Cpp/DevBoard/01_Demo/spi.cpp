@@ -7,8 +7,6 @@
 
  #include "spi.h"
 
- SpiMaster Spi = SpiMaster(FoscPer16);
-
  SpiMaster::SpiMaster(SpiClockRate clock_rate)
  {
     /* Port Init */
@@ -26,6 +24,5 @@
     SPCR = (1 << SPE) | (1 << MSTR) | (clock_rate << SPR0);
     SPSR = 0;
  }
- 
  
 

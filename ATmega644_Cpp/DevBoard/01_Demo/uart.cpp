@@ -31,7 +31,7 @@ void Uart::Init(uint32_t baud)
 
 void Uart::Printf( const char* str )
 {
-	while (str != 0)
+	while (*str != 0)
 	{
 		this->Send(*str);
 		str++;
